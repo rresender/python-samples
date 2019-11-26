@@ -1,5 +1,5 @@
 # linear sorted version
-def hasPairWithSum(data, sum):
+def has_pair_with_sum(data, sum):
     low = 0
     high = len(data) - 1
     while(low < high):
@@ -16,7 +16,7 @@ def hasPairWithSum(data, sum):
     return False
 
 # linear sorted version
-def hasPairWithSumNonSorted(data, sum):
+def has_pair_with_sum_non_sorted(data, sum):
     list = set()
     for val in data:
         if val in list:
@@ -26,6 +26,6 @@ def hasPairWithSumNonSorted(data, sum):
 
 sum = 15
 data = [1, 2, 3, 4, 4, 5, 10]
-print(hasPairWithSum(data, sum))
+print(has_pair_with_sum(data, sum))
 data = [10, 5, 1, 2, 3, 4, 4]
-print(hasPairWithSumNonSorted(data, sum))
+print(has_pair_with_sum_non_sorted(data, sum))

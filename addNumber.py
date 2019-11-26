@@ -9,7 +9,7 @@ def increment(number):
         number[i] = v % 10
         if carry == 0:
             return number
-
+            
     if carry == 1:
         result = [0] * (len(number) + 1)
         result[0] = carry
