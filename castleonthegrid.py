@@ -4,53 +4,54 @@ from collections import deque
 
 def minimumMoves(grid, startX, startY, goalX, goalY):
     
-    n = len(grid)
+    size = len(grid)
     start = (startX, startY)
 
-    distances = {(x, y): sys.maxsize for x in range(n) for y in range(n)}
+    distances = {(x, y): size for x in range(size) for y in range(size)}
     distances[start] = 0
 
-    stack = deque()
-    stack.append(start)
+    q = deque()
+    q.append(start)
 
-    while stack:
+    while q:
         
-        nextX, nextY = stack.pop()
-        d = distances[(nextX, nextY)]
+        currX, currY = q.pop()
+        d = distances[(currX, currY)]
 
-        if (nextX, nextY) == (goalX, goalY):
+        if (currX, currY) == (goalX, goalY):
             return d
 
-        nexts = []
-
+        adjacents = []
         #up
-        x = nextX - 1
-        while x > -1 and grid[x][nextY] != 'X':
-            nexts.append((x, nextY))
-            x -= 1
-
+        nextX = currX - 1
+        while nextX > -1 and not blocked(grid, nextX, currY):
+            adjacents.append((nextX, currY))
+            nextX -= 1
         #down
-        x = nextX + 1
-        while x < n and grid[x][nextY] != 'X':
-            nexts.append((x, nextY))
-            x += 1
-
+        nextX = currX + 1
+        while nextX < size and not blocked(grid, nextX, currY):
+            adjacents.append((nextX, currY))
+            nextX += 1
         #left
-        y = nextY - 1
-        while y > -1 and grid[nextX][y] != 'X':
-            nexts.append((nextX, y))
-            y -= 1
-
+        nextY = currY - 1
+        while nextY > -1 and not blocked(grid, currX, nextY):
+            adjacents.append((currX, nextY))
+            nextY -= 1
         # right
-        y = nextY + 1
-        while y < n and grid[nextX][y] != 'X':
-            nexts.append((nextX, y))
-            y += 1
+        nextY = currY + 1
+        while nextY < size and not blocked(grid, currX, nextY):
+            adjacents.append((currX, nextY))
+            nextY += 1
     
-        for cells in nexts:
+        for cells in adjacents:
             if d + 1 < distances[cells]:
                 distances[cells] = d + 1
-                stack.appendleft(cells)
+                q.appendleft(cells)
+
+def blocked(grid, x, y):
+    return grid[x][y] == 'X'
+
+
 
 if __name__ == '__main__':
 
@@ -65,18 +66,18 @@ if __name__ == '__main__':
 
     # grid = [['.', '.', '.'],['.', 'X', '.'],['.', 'X', '.']]
     # startXStartY = [2, 0, 2, 2]
-    # grid = [
-    # ['.','X','.','.','X','X','.','.','.','X'],
-    # ['X','.','.','.','.','.','.','.','.','.'],
-    # ['.','X','.','.','.','.','.','.','.','X'],
-    # ['.','.','.','.','.','.','.','.','.','.'],
-    # ['.','.','.','.','.','.','.','.','X','.'],
-    # ['.','X','.','.','.','X','X','X','.','.'],
-    # ['.','.','.','.','.','X','.','.','X','X'],
-    # ['.','.','.','.','.','X','.','X','.','.'],
-    # ['.','.','.','.','.','.','.','.','.','.'],
-    # ['.','.','.','.','.','X','.','.','X','X']]
-    # startXStartY = [9, 1, 9, 6]
+    grid = [
+    ['.','X','.','.','X','X','.','.','.','X'],
+    ['X','.','.','.','.','.','.','.','.','.'],
+    ['.','X','.','.','.','.','.','.','.','X'],
+    ['.','.','.','.','.','.','.','.','.','.'],
+    ['.','.','.','.','.','.','.','.','X','.'],
+    ['.','X','.','.','.','X','X','X','.','.'],
+    ['.','.','.','.','.','X','.','.','X','X'],
+    ['.','.','.','.','.','X','.','X','.','.'],
+    ['.','.','.','.','.','.','.','.','.','.'],
+    ['.','.','.','.','.','X','.','.','X','X']]
+    startXStartY = [9, 1, 9, 6]
 
     startX = int(startXStartY[0])
 
