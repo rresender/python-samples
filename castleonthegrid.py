@@ -4,10 +4,10 @@ from collections import deque
 
 def minimumMoves(grid, startX, startY, goalX, goalY):
     
-    size = len(grid)
+    length = len(grid)
     start = (startX, startY)
 
-    distances = {(x, y): size for x in range(size) for y in range(size)}
+    distances = {(x, y): sys.maxsize for x in range(length) for y in range(length)}
     distances[start] = 0
 
     q = deque()
@@ -22,6 +22,7 @@ def minimumMoves(grid, startX, startY, goalX, goalY):
             return d
 
         adjacents = []
+
         #up
         nextX = currX - 1
         while nextX > -1 and not blocked(grid, nextX, currY):
@@ -29,7 +30,7 @@ def minimumMoves(grid, startX, startY, goalX, goalY):
             nextX -= 1
         #down
         nextX = currX + 1
-        while nextX < size and not blocked(grid, nextX, currY):
+        while nextX < length and not blocked(grid, nextX, currY):
             adjacents.append((nextX, currY))
             nextX += 1
         #left
@@ -39,7 +40,7 @@ def minimumMoves(grid, startX, startY, goalX, goalY):
             nextY -= 1
         # right
         nextY = currY + 1
-        while nextY < size and not blocked(grid, currX, nextY):
+        while nextY < length and not blocked(grid, currX, nextY):
             adjacents.append((currX, nextY))
             nextY += 1
     
@@ -61,23 +62,23 @@ if __name__ == '__main__':
     # grid = [['.', 'X', '.'],['.', 'X', '.'],['.', '.', '.']]
     # startXStartY = [0, 0, 0, 2]
 
-    # grid = [['.', '.', '.'],['.', 'X', '.'],['.', 'X', '.']]
-    # startXStartY = [2, 0, 0, 2]
+    grid = [['.', '.', '.'],['.', 'X', '.'],['.', 'X', '.']]
+    startXStartY = [2, 0, 0, 2]
 
     # grid = [['.', '.', '.'],['.', 'X', '.'],['.', 'X', '.']]
     # startXStartY = [2, 0, 2, 2]
-    grid = [
-    ['.','X','.','.','X','X','.','.','.','X'],
-    ['X','.','.','.','.','.','.','.','.','.'],
-    ['.','X','.','.','.','.','.','.','.','X'],
-    ['.','.','.','.','.','.','.','.','.','.'],
-    ['.','.','.','.','.','.','.','.','X','.'],
-    ['.','X','.','.','.','X','X','X','.','.'],
-    ['.','.','.','.','.','X','.','.','X','X'],
-    ['.','.','.','.','.','X','.','X','.','.'],
-    ['.','.','.','.','.','.','.','.','.','.'],
-    ['.','.','.','.','.','X','.','.','X','X']]
-    startXStartY = [9, 1, 9, 6]
+    # grid = [
+    # ['.','X','.','.','X','X','.','.','.','X'],
+    # ['X','.','.','.','.','.','.','.','.','.'],
+    # ['.','X','.','.','.','.','.','.','.','X'],
+    # ['.','.','.','.','.','.','.','.','.','.'],
+    # ['.','.','.','.','.','.','.','.','X','.'],
+    # ['.','X','.','.','.','X','X','X','.','.'],
+    # ['.','.','.','.','.','X','.','.','X','X'],
+    # ['.','.','.','.','.','X','.','X','.','.'],
+    # ['.','.','.','.','.','.','.','.','.','.'],
+    # ['.','.','.','.','.','X','.','.','X','X']]
+    # startXStartY = [9, 1, 9, 6]
 
     startX = int(startXStartY[0])
 
