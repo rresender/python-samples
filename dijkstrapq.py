@@ -99,6 +99,6 @@ if __name__ == "__main__":
     print("=== Dijkstra ===")
     # print(edges)
     # print("A -> E:")
-    print(dijkstra(edges, "A", "F"))
+    # print(dijkstra(edges, "A", "F"))
     # print("F -> G:")
-    # print(dijkstra(edges, "F", "G"))
+    print(dijkstra(edges, "F", "G"))
